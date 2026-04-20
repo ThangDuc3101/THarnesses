@@ -1,0 +1,25 @@
+{
+  "name": "my-harness",
+  "version": "0.1.0",
+  "description": "Personal agent harness for Claude Code",
+  "type": "module",
+  "bin": {
+    "harness": "./index.js"
+  },
+  "scripts": {
+    "test": "node index.js --help"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.9.0",
+    "commander": "^12.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "index.js",
+    "install.js",
+    "update.js",
+    "status.js"
+  ]
+}
