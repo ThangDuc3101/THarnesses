@@ -111,7 +111,11 @@ def parse_js_ts(content: str) -> tuple[list, list]:
             line = content[:m.start()].count('\n') + 1
             symbols.append((kind, m.group(1), line))
 
-    for m in re.finditer(r'''(?:import|require)\s*[\({'"]([^'"\)]+)['"\)]''', content):
+    # ES6: import 'mod' or import { x } from 'mod' or import x from "mod"
+    for m in re.finditer(r"""import\s+(?:[^'"]*?from\s+)?['"]([^'"]+)['"]""", content):
+        imports.append(m.group(1))
+    # CommonJS: require('mod') or require("mod")
+    for m in re.finditer(r"""require\s*\(\s*['"]([^'"]+)['"]\s*\)""", content):
         imports.append(m.group(1))
 
     return symbols, imports
