@@ -1,0 +1,39 @@
+{
+  "name": "tharnesses",
+  "version": "0.1.0",
+  "description": "Personal agent harness for Claude Code — memory, checkpoints, task loop",
+  "type": "module",
+  "bin": {
+    "harness": "./tools/cli/index.js"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.9.0",
+    "commander": "^12.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "tools/cli/",
+    "bootstrap/",
+    "memory/",
+    "core/",
+    "tools/mcp-setup/",
+    "tools/situation-detect/"
+  ],
+  "keywords": [
+    "claude",
+    "agent",
+    "harness",
+    "claude-code",
+    "llm",
+    "ai-agent"
+  ],
+  "author": "ThangDuc3101",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ThangDuc3101/THarnesses.git"
+  },
+  "homepage": "https://github.com/ThangDuc3101/THarnesses#readme"
+}

@@ -39,14 +39,17 @@ LAYER 0 — TOOLS
 ## Cài đặt nhanh
 
 ```bash
-# Cài vào project của bạn
-npx my-harness install
+# Cài vào project của bạn (dùng GitHub — không cần npm publish)
+npx github:ThangDuc3101/THarnesses install
+
+# Hoặc nếu đã publish lên npm
+npx tharnesses install
 
 # Cập nhật harness (giữ nguyên file đã customize)
-npx my-harness update
+npx github:ThangDuc3101/THarnesses update
 
 # Kiểm tra trạng thái
-npx my-harness status
+npx github:ThangDuc3101/THarnesses status
 ```
 
 > **Yêu cầu:** Node.js >= 18, Python >= 3.10 (cho code graph)
