@@ -266,6 +266,25 @@ export async function install() {
   fs.writeFileSync("progress.md", progressContent);
   hashes["progress.md"] = sha256(progressContent);
 
+  // CLAUDE.md — entry point cho Claude Code, import toàn bộ harness
+  const claudeMdContent = `# ${String(projectName)}
+
+${String(projectDesc)}
+
+---
+
+<!-- Harness core — Claude Code tự đọc khi mở project -->
+@_harness/SKILL.md
+@_harness/caveman.md
+@_harness/task-loop.md
+@_harness/checkpoint.md
+@_harness/resume.md
+@_harness/quickfix.md
+@_harness/progress-protocol.md
+`;
+  fs.writeFileSync("CLAUDE.md", claudeMdContent);
+  hashes["CLAUDE.md"] = sha256(claudeMdContent);
+
   // Hash registry
   saveHashes(hashes);
 
@@ -279,6 +298,7 @@ export async function install() {
 
   // ── Summary ───────────────────────────────────────────────────────────────
   p.log.success("Harness đã sẵn sàng:");
+  console.log("  CLAUDE.md                  entry point — Claude Code tự đọc");
   console.log("  _harness/SKILL.md          project conventions");
   console.log("  _harness/task-loop.md      how agent works");
   console.log("  _harness/checkpoint.md     when agent stops to ask");
