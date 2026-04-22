@@ -250,6 +250,7 @@ export async function install() {
     ["core/checkpoint/SKILL.md",     "_harness/checkpoint.md"],
     ["core/resume/SKILL.md",         "_harness/resume.md"],
     ["core/quickfix/SKILL.md",       "_harness/quickfix.md"],
+    ["core/caveman/SKILL.md",        "_harness/caveman.md"],
   ];
   for (const [src, dest] of coreToCopy) {
     copyWithHash(path.join(HARNESS_ROOT, src), dest, hashes);
@@ -281,6 +282,7 @@ export async function install() {
   console.log("  _harness/SKILL.md          project conventions");
   console.log("  _harness/task-loop.md      how agent works");
   console.log("  _harness/checkpoint.md     when agent stops to ask");
+  console.log("  _harness/caveman.md        terse Vietnamese responses");
   console.log("  _harness/graph/            code graph scripts");
   console.log("  progress.md                session memory");
 
