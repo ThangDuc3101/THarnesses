@@ -12,6 +12,7 @@ Một lớp infrastructure chạy trên **Claude Code**, biến LLM từ "model 
 | Reliability giảm dần (`0.95^20 = 36%`) | 4 checkpoint chiến lược |
 | Over-engineering từ đầu | Triết lý "grow with the project" |
 | Lặp lại lỗi cũ ở session sau | `Errors & Fixes` bắt buộc trong progress.md |
+| Token lãng phí vào filler text | Caveman VI — terse Vietnamese responses (~72% output token savings) |
 
 ---
 
@@ -54,6 +55,20 @@ npx github:ThangDuc3101/THarnesses status
 
 > **Yêu cầu:** Node.js >= 18, Python >= 3.10 (cho code graph)
 
+Install tạo ra:
+```
+CLAUDE.md          ← Claude Code tự đọc, load toàn bộ harness skills
+_harness/
+  SKILL.md         project conventions (từ template + câu trả lời của bạn)
+  caveman.md       terse Vietnamese responses
+  task-loop.md     vòng lặp agent
+  checkpoint.md    4 điểm dừng chiến lược
+  resume.md        tiếp tục session dở dang
+  quickfix.md      fast path cho task nhỏ
+  graph/           code graph scripts
+progress.md        session memory
+```
+
 ---
 
 ## Cấu trúc repo
@@ -84,7 +99,8 @@ THarnesses/
 │   ├── task-loop/SKILL.md  Pick→Context→Execute→Validate→Commit
 │   ├── checkpoint/SKILL.md 4 trigger conditions + question templates
 │   ├── resume/SKILL.md     Đọc progress → tiếp tục đúng chỗ
-│   └── quickfix/SKILL.md   Fast path cho task nhỏ
+│   ├── quickfix/SKILL.md   Fast path cho task nhỏ
+│   └── caveman/SKILL.md    Terse Vietnamese responses, always-on
 │
 ├── tools/                  Phase 4 — CLI + tooling
 │   ├── cli/
@@ -135,6 +151,30 @@ python memory/graph/query.py summary
 ```
 
 Hỗ trợ: Python, JavaScript, TypeScript, Go. Lưu vào `.graph/code.db` (SQLite).
+
+---
+
+## Caveman VI — Token Compression
+
+Mặc định bật. Agent trả lời terse, technical, không filler — tiết kiệm ~72% output token, kéo dài session.
+
+```
+Trước:  "Được rồi! Tôi đã xem xét vấn đề. Có thể thấy rằng lỗi xảy ra do
+         thiếu kiểm tra null ở dòng 42. Tôi nghĩ chúng ta nên thêm guard..."
+
+Sau:    "L42: user có thể None → AttributeError. Thêm: if user is None: return.
+         Cần giải thích thêm hay tiếp tục?"
+```
+
+3 mức độ toggle trong session:
+```
+/caveman lite    — bỏ filler, giữ ngữ pháp
+/caveman full    — fragment OK (default)
+/caveman ultra   — tối giản tuyệt đối
+/caveman off     — tắt
+```
+
+Checkpoint C1-C4 và cảnh báo destructive **không bị rút gọn** — agent luôn hỏi đầy đủ khi cần confirm.
 
 ---
 
