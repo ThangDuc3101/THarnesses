@@ -310,6 +310,7 @@ ${String(projectDesc)}
   console.log("  1. Mở Claude Code trong thư mục này");
   console.log("  2. Agent sẽ tự đọc _harness/ và bắt đầu");
   console.log(`  3. Nói với agent: \"Implement MVP: ${String(mvp)}\"`);
+  console.log("  4. Sau khi có code: python _harness/graph/build.py --root .");
 
   gitCommit(`chore: harness install for ${String(projectName)}`);
   p.outro("Done. Happy coding!");
